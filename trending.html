@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/4c322811d7.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #131a27;
+            color: white;
+        }
+
+        #nav {
+            display: flex;
+            justify-content: space-between;
+            background-color: #131a27;
+            padding: 8px 45px;
+            /* border: 1px solid red; */
+            margin-bottom: 10px;
+        }
+
+        #left {
+            /* border: 1px solid red; */
+            gap: 25px;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+
+
+        #right {
+            color: white;
+            gap: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        #right>button {
+            background-color: #1f80e0;
+            color: white;
+            border: none;
+            font-weight: bold;
+            height: 30px;
+            width: 100px;
+            border-radius: 10px;
+        }
+
+        #right>input {
+            background-color: #131a27;
+            border: none;
+            border-bottom: 1px solid white;
+            outline: none;
+            font-weight: bold;
+            font-size: 15px;
+            height: 30px;
+            color: white;
+        }
+
+        #kid {
+            font-style: italic;
+            color: orange;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            margin-top: 8px;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        #main {
+            display: grid;
+            gap: 15px;
+            grid-template-columns: repeat(7, 1fr);
+        }
+
+        #main>div {
+            width: 160px;
+            height: 180px;
+            text-align: center;
+        }
+
+        #main img {
+            width: 160px;
+            height: 180px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="nav">
+        <div id="left">
+            <i class="fa-solid fa-bars"></i>
+            <a href="index.html"> <img
+                    src="https://secure-media.hotstarext.com/web-assets/prod/images/brand-logos/disney-hotstar-logo-dark.svg"></a>
+
+            <a href="trending.html">
+                <p>TV</p>
+            </a>
+            <a href="trending.html">
+                <p>Movies</p>
+            </a>
+            <a href="trending.html">
+                <p>Sports</p>
+            </a>
+            <a href="trending.html">
+                <p>Disney+</p>
+            </a>
+            <h3 id="kid">KiDS</h3>
+        </div>
+
+        <div id="right">
+            <input type="text" placeholder="Search">
+            <button>SUBSCRIBE</button>
+            <p>LOGIN</p>
+        </div>
+    </div>
+
+
+    <div id="main"></div>
+
+</body>
+
+</html>
+<script>
+    const url = "https://api.themoviedb.org/3/trending/all/day?api_key=0f57cc4bf45cc6267efebe788f62186c"
+
+    const imgpath = "https://image.tmdb.org/t/p/w500"
+
+    fetch(url).then(function (res) {
+        return res.json()
+    }).then(function (res) {
+        console.log(res)
+        append(res.results)
+    }).catch(function (err) {
+        console.log(err)
+    })
+
+    const append = (data) => {
+
+        var popular = document.querySelector("#main")
+
+        data.forEach(({ poster_path }) => {
+            var cell = document.createElement("div")
+
+            let image = document.createElement("img")
+            image.src = `${imgpath + poster_path}`
+
+            cell.append(image)
+
+            popular.append(cell)
+        })
+
+    }
+ 
+</script>
